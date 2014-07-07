@@ -12,6 +12,7 @@ App.Base.Model.Course = Backbone.Model.extend({
         code:               "",
         lesson_number:      0
     },
+    //urlRoot: "courses",
 
     validate: function (attrs) {
         var error = "";

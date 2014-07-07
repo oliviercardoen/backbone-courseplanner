@@ -70,12 +70,15 @@ class App extends Application {
 	public function registerRoutes()
 	{
 		$controllers = array();
-		$controllers['course']     = new CourseController( $this );
-		$controllers['curriculum'] = new CurriculumController( $this );
-		$controllers['user']       = new UserController( $this );
-		$controllers['school']     = new SchoolController( $this );
 
-		$controllers['school_location'] = new SchoolLocationController( $this );
+		// @refactor: Laravel 4: Route::resource('tasks', 'TasksController');
+
+		$controllers['course']     = new CourseController( $this );
+//		$controllers['curriculum'] = new CurriculumController( $this );
+//		$controllers['user']       = new UserController( $this );
+//		$controllers['school']     = new SchoolController( $this );
+//
+//		$controllers['school_location'] = new SchoolLocationController( $this );
 
 		/* Home route */
 		$this->router->get( '/', function() {
@@ -89,48 +92,48 @@ class App extends Application {
 			}
 			exit( View::make( 'layout' , array(
 				'content' => View::make( 'index', array(
-					'title'   => sprintf( 'Bienvenue, %s!', $user->firstname ),
-					'content' => '<p class="lead">Vous allez d&eacute;couvrir Course Planner. Le premier logiciel web de gestion de votre agenda de cours.</p>'
+					//'title'   => sprintf( 'Bienvenue, %s!', $user->firstname ),
+					//'content' => '<p class="lead">Vous allez d&eacute;couvrir Course Planner. Le premier logiciel web de gestion de votre agenda de cours.</p>'
 				) )
 			) ) );
 		});
 
 		/* Registration and login routes */
-		$this->router->get( '/register/',       array( $controllers['user'], 'indexAction' ) );
-		$this->router->post( '/register/save/', array( $controllers['user'], 'saveAction' ) );
-		$this->router->post( '/authenticate/',  array( $controllers['user'], 'authenticateAction' ) );
-		$this->router->get( '/logout/',         array( $controllers['user'], 'logoutAction' ) );
-		$this->router->get( '/profile/',        array( $controllers['user'], 'profileAction' ) );
+//		$this->router->get( '/register/',       array( $controllers['user'], 'indexAction' ) );
+//		$this->router->post( '/register/save/', array( $controllers['user'], 'saveAction' ) );
+//		$this->router->post( '/authenticate/',  array( $controllers['user'], 'authenticateAction' ) );
+//		$this->router->get( '/logout/',         array( $controllers['user'], 'logoutAction' ) );
+//		$this->router->get( '/profile/',        array( $controllers['user'], 'profileAction' ) );
 
 		/* Course routes */
-		$this->router->get( '/courses/',           array( $controllers['course'], 'indexAction' ) );
-		$this->router->get( '/courses/new/',       array( $controllers['course'], 'newAction' ) );
-		$this->router->get( '/courses/show/:id/',  array( $controllers['course'], 'showAction' ) );
-		$this->router->get( '/courses/edit/:id/',  array( $controllers['course'], 'editAction' ) );
-		$this->router->post( '/courses/save/',     array( $controllers['course'], 'saveAction' ) );
-		$this->router->post( '/courses/delete/',   array( $controllers['course'], 'deleteAction' ) );
+		$this->router->get( '/courses/',           array( $controllers['course'], 'index' ) );
+		$this->router->get( '/courses/:id/',       array( $controllers['course'], 'show' ) );
+		$this->router->post( '/courses/',          array( $controllers['course'], 'create' ) );
+		$this->router->put( '/courses/:id/',       array( $controllers['course'], 'update' ) );
+		$this->router->delete( '/courses/:id',     array( $controllers['course'], 'delete' ) );
 
-		/* Curriculum routes */
-		$this->router->get( '/curriculums/',          array( $controllers['curriculum'], 'indexAction' ) );
-		$this->router->get( '/curriculums/new/',      array( $controllers['curriculum'], 'newAction' ) );
-		$this->router->get( '/curriculums/show/:id/', array( $controllers['curriculum'], 'showAction' ) );
-		$this->router->get( '/curriculums/edit/:id/', array( $controllers['curriculum'], 'editAction' ) );
-		$this->router->post( '/curriculums/save/',    array( $controllers['curriculum'], 'saveAction' ) );
-		$this->router->post( '/curriculums/delete/',  array( $controllers['curriculum'], 'deleteAction' ) );
 
-		/* Schools routes */
-		$this->router->get( '/schools/',          array( $controllers['school'], 'indexAction' ) );
-		$this->router->get( '/schools/new/',      array( $controllers['school'], 'newAction' ) );
-		$this->router->get( '/schools/show/:id/', array( $controllers['school'], 'showAction' ) );
-		$this->router->get( '/schools/edit/:id/', array( $controllers['school'], 'editAction' ) );
-		$this->router->post( '/schools/save/',    array( $controllers['school'], 'saveAction' ) );
-		$this->router->post( '/schools/delete/',  array( $controllers['school'], 'deleteAction' ) );
-
-		$this->router->get( '/schools/locations/new/',      array( $controllers['school_location'], 'newAction' ) );
-		$this->router->get( '/schools/locations/show/:id/', array( $controllers['school_location'], 'showAction' ) );
-		$this->router->get( '/schools/locations/edit/:id/', array( $controllers['school_location'], 'editAction' ) );
-		$this->router->post( '/schools/locations/save/',    array( $controllers['school_location'], 'saveAction' ) );
-		$this->router->post( '/schools/locations/delete/',  array( $controllers['school_location'], 'deleteAction' ) );
+//		/* Curriculum routes */
+//		$this->router->get( '/curriculums/',          array( $controllers['curriculum'], 'indexAction' ) );
+//		$this->router->get( '/curriculums/new/',      array( $controllers['curriculum'], 'newAction' ) );
+//		$this->router->get( '/curriculums/show/:id/', array( $controllers['curriculum'], 'showAction' ) );
+//		$this->router->get( '/curriculums/edit/:id/', array( $controllers['curriculum'], 'editAction' ) );
+//		$this->router->post( '/curriculums/save/',    array( $controllers['curriculum'], 'saveAction' ) );
+//		$this->router->post( '/curriculums/delete/',  array( $controllers['curriculum'], 'deleteAction' ) );
+//
+//		/* Schools routes */
+//		$this->router->get( '/schools/',          array( $controllers['school'], 'indexAction' ) );
+//		$this->router->get( '/schools/new/',      array( $controllers['school'], 'newAction' ) );
+//		$this->router->get( '/schools/show/:id/', array( $controllers['school'], 'showAction' ) );
+//		$this->router->get( '/schools/edit/:id/', array( $controllers['school'], 'editAction' ) );
+//		$this->router->post( '/schools/save/',    array( $controllers['school'], 'saveAction' ) );
+//		$this->router->post( '/schools/delete/',  array( $controllers['school'], 'deleteAction' ) );
+//
+//		$this->router->get( '/schools/locations/new/',      array( $controllers['school_location'], 'newAction' ) );
+//		$this->router->get( '/schools/locations/show/:id/', array( $controllers['school_location'], 'showAction' ) );
+//		$this->router->get( '/schools/locations/edit/:id/', array( $controllers['school_location'], 'editAction' ) );
+//		$this->router->post( '/schools/locations/save/',    array( $controllers['school_location'], 'saveAction' ) );
+//		$this->router->post( '/schools/locations/delete/',  array( $controllers['school_location'], 'deleteAction' ) );
 
 
 		// Handle not found error from Slim on parse_request.

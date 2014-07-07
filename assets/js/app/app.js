@@ -2,6 +2,7 @@
 (function(){
 
     window.App = {
+
         Base: {
             Model: {},
             Collection: {},
@@ -11,6 +12,9 @@
             Model: {},
             Collection: {},
             View: {}
+        },
+        Event: {
+            router: _.extend({}, Backbone.Events)
         },
         Message: {
             Error: {
@@ -30,7 +34,11 @@
             compile: function (id) {
                 return _.template($("#" + id).html());
             }
+        },
+        ViewManager: {
+            $primary: $("#primary")
         }
+
     };
 
 })();

@@ -61,7 +61,8 @@
 
 	<!-- Templates -->
 	<?php include_once 'courses/js/list-item.php'; ?>
-	<?php include_once 'courses/js/block.php'; ?>
+	<?php include_once 'courses/js/block-index.php'; ?>
+	<?php include_once 'courses/js/block-show.php'; ?>
 
 	<!-- Scripts -->
 	<script src="<?php echo App::asset( 'js/vendor/jquery.js' ); ?>"></script>
@@ -71,42 +72,28 @@
 	<script src="<?php echo App::asset( 'js/vendor/backbone.js' ); ?>"></script>
 	
 	<script src="<?php echo App::asset( 'js/app/app.js' ); ?>"></script>
+	<script src="<?php echo App::asset( 'js/app/router.js' ); ?>"></script>
 	<script src="<?php echo App::asset( 'js/src/base/model/course.js' ); ?>"></script>
 	<script src="<?php echo App::asset( 'js/src/base/collection/course-collection.js' ); ?>"></script>
 	<script src="<?php echo App::asset( 'js/src/base/view/course-item-view.js' ); ?>"></script>
 	<script src="<?php echo App::asset( 'js/src/base/view/course-collection-view.js' ); ?>"></script>
 	<script src="<?php echo App::asset( 'js/src/base/view/course-form-view.js' ); ?>"></script>
+	<script src="<?php echo App::asset( 'js/src/base/view/course-view.js' ); ?>"></script>
 
 	<script>
 		// Run time
 		$(function () {
 
-			var courses = new App.Base.Collection.CourseCollection([
-				{
-					name: "Langage orienté-objet",
-					lesson_number: 45,
-					code: "UF 393",
-					start_date: "2008-12-12",
-					end_date: "2009-12-31"
-				},
-				{
-					name: "Anglais 1",
-					lesson_number: 12,
-					code: "UF 867",
-					start_date: "2008-11-01",
-					end_date: "2010-12-31"
-				}
-			]);
+			var courses = new App.Base.Collection.CourseCollection();
+			courses.fetch();
 
 			var collectionView = new App.Base.View.CourseCollectionView({collection: courses});
 			var formView = new App.Base.View.CourseFormView({
 				collection: courses
 			});
 
-			var courseBlock = App.Template.compile("course-block");
-
-			$("#primary").append(courseBlock({title: "<h2 class=\"mb-medium mt-none\">Mes cours</h2>"}));
-			$("#course-table").append(collectionView.render().el);
+			var router = new App.Router();
+			Backbone.history.start();
 
 		});
 	</script>

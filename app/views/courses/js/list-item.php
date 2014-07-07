@@ -1,6 +1,12 @@
 <script type="text/template" id="course-list-item">
 	<td class="hidden-xs"><%= code %></td>
-	<td><a href="#"><%= name %></a></td>
+	<td>
+		<% if (typeof(id) !== "undefined") { %>
+			<a href="#courses/<%= id %>"><%= name %></a>
+		<% } else { %>
+			<a href="#courses/"><%= name %></a>
+		<% } %>
+	</td>
 	<td class="hidden-xs"><%= start_date %></td>
 	<td class="hidden-xs"><%= end_date %></td>
 	<td class="hidden-xs"><a href="<%= reference_document %>" target="_blank">Dossier pédagogique<i class="glyphicon glyphicon-share-alt ml-xxsmall"></i></a></td>

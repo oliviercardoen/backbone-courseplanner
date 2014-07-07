@@ -3,8 +3,6 @@
 <?php endif; ?>
 
 <p class="lead"><?php echo ( isset( $content ) ) ? $content : ''; ?></p>
-
-<div id="primary">
-	<?php include_once 'courses/js/block-form.php'; ?>
-</div>
+<?php include_once 'courses/js/block-form.php'; ?>
+<div id="primary"></div>
 <div id="secondary"></div>

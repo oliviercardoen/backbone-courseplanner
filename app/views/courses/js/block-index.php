@@ -1,4 +1,4 @@
-<script type="text/template" id="course-block">
+<script type="text/template" id="course-block-index">
 	<div class="row">
 		<div class="col-sm-10 col-xs-9">
 			<%= title %>

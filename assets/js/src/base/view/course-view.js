@@ -1,19 +1,16 @@
-// Course Item View
-// Contains all UI logic related to a single course.
-App.Base.View.CourseItemView = Backbone.View.extend({
+// Course View
+// Contains all UI logic related to a single course on a single page.
+App.Base.View.CourseView = Backbone.View.extend({
 
-    tagName:   "tr",
-    className: "course-item",
+    className: "course",
 
     initialize: function () {
         this.model.on("invalid", this.showError, this);
-        this.model.on("change", this.render, this);
-
-        // Listen for deletion confirmation event into model (i.e. from database).
+        this.model.on("change",  this.render, this);
         this.model.on("destroy", this.remove, this);
     },
 
-    template: App.Template.compile("course-list-item"),
+    template: App.Template.compile("course-block-show"),
 
     events: {
         'click .edit':   'edit',
@@ -27,11 +24,11 @@ App.Base.View.CourseItemView = Backbone.View.extend({
     edit: function () {
         var title = prompt("Comment s'appelle le cours ?")
         this.model.set({"name": title}, {validate: true});
-        this.model.save();
     },
 
     destroy: function () {
         this.model.destroy();
+        alert(this.model.get("name") + " has been destroyed");
     },
 
     render: function () {
@@ -41,6 +38,11 @@ App.Base.View.CourseItemView = Backbone.View.extend({
 
     showError: function (model, error) {
         App.ViewManager.$primary.prepend(App.Alert.error({message: error}));
+    },
+
+    // Remove model when view has received confirmation event.
+    remove: function () {
+        this.$el.remove();
     }
 
 });

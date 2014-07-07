@@ -1,56 +1,19 @@
 <?php
 namespace CoursePlanner\BaseModule\Controller;
 
-use CoursePlanner\BaseModule\Model\Curriculum;
 use Octopix\Selene\Form\Input\Input;
 use Octopix\Selene\Mvc\Controller\Rest\RestController;
-use Octopix\Selene\Mvc\View\View;
 use CoursePlanner\BaseModule\Model\Course;
 
 class CourseController extends RestController {
 
 	/**
-	 * Handle the delete action.
-	 * Usually, controller will delete the entity.
-	 */
-	public function deleteAction()
-	{
-		$message = 'Une erreur est survenue. Votre cours n\'a pas été supprimé.';
-
-		$course = Course::find( (int) $this->getRequest()->post('id') );
-		$deleted = $course->delete();
-
-		if ( $deleted ) {
-			$message = 'Votre cours a correctement été supprimé.';
-		}
-		$this->render( View::make( 'courses/index' , array(
-			'status'  => $deleted,
-			'message' => $message,
-			'title'   => 'Mes Cours',
-			'courses' => Course::all()
-		) ) );
-	}
-
-	/**
 	 * Handle the index action.
 	 * Usually, controller will fetch entities and render a list.
 	 */
-	public function indexAction()
+	public function index()
 	{
 		$this->render( Course::all() );
-	}
-
-	/**
-	 * Handle the new action.
-	 * Usually, the controller will display an empty form to create a new
-	 * instance of a model and store in the database.
-	 */
-	public function newAction()
-	{
-		$this->render( View::make( 'courses/form' , array(
-			'title'   => 'Ajouter un nouveau cours',
-			'curriculums' => Curriculum::all()
-		) ) );
 	}
 
 	/**
@@ -58,59 +21,61 @@ class CourseController extends RestController {
 	 * Usually, controller will fetch one record and render the entity.
 	 * @param array $vars
 	 */
-	public function showAction($id)
+	public function show($id)
 	{
-		$course = Course::find( $id );
-		$this->render( View::make( 'courses/show', array(
-			'title'  	  => $course->name,
-			'course' 	  => $course,
-			'curriculums' => $course->curriculums()
-		) ) );
-	}
-
-	/**
-	 * Handle the edit action.
-	 * Usually, controller will fetch one record, render the entity
-	 * and the form to edit the rendered entity.
-	 */
-	public function editAction($id)
-	{
-		$course = Course::find( $id );
-		$this->render( View::make( 'courses/form' , array(
-			'title'  => sprintf( 'Modifier "%s"', $course->name ),
-			'course' => $course,
-			'curriculums' => Curriculum::all()
-		) ) );
+		$this->render( Course::find( (int) $id ) );
 	}
 
 	/**
 	 * Handle the save action.
 	 * Usually, controller will persist the current entity.
 	 */
-	public function saveAction()
+	public function create()
 	{
-		$message = 'Une erreur est survenue. Votre cours n\'a pas &eacute;t&eacute; enregistr&eacute;.';
+		$raw  = $this->getRequest()->getBody();
+		$data = json_decode( $raw, true );
 
 		$course = new Course();
-		$course->id = (int) $this->getRequest()->post('id');
-		$course->name = Input::safe( $this->getRequest()->post('name') );
-		$course->code = Input::safe( $this->getRequest()->post('code') );
-		$course->start_date = Input::safe( $this->getRequest()->post('start_date') );
-		$course->end_date = Input::safe( $this->getRequest()->post('end_date') );
-		$course->reference_document = Input::safe( $this->getRequest()->post('reference_document') );
-		$course->curriculum_ids = $this->getRequest()->post('curriculum_id');
-		$saved = $course->save();
+		$course->id = (int) $data['id'];
+		$course->name = Input::safe( $data['name'] );
+		$course->code = Input::safe( $data['code'] );
+		$course->start_date = Input::safe( $data['start_date'] );
+		$course->end_date = Input::safe( $data['end_date'] );
+		$course->reference_document = Input::safe( $data['reference_document'] );
+		$course->save();
 
-		if ( $saved ) {
-			$message = 'Votre cours a correctement &eacute;t&eacute; enregistr&eacute;.';
-		}
-		$this->render( View::make( 'courses/show' , array(
-			'status'  => $saved,
-			'message' => $message,
-			'title'   => $course->name,
-			'course'  => $course,
-			'curriculums' => $course->curriculums()
-		) ) );
+		$this->render( $course );
 	}
 
-} 
+	/**
+	 * Handle the save action.
+	 * Usually, controller will persist the current entity.
+	 */
+	public function update($id)
+	{
+		$raw  = $this->getRequest()->getBody();
+		$data = json_decode( $raw, true );
+
+		$course = Course::find( (int) $id );
+		$course->name = Input::safe( $data['name'] );
+		$course->code = Input::safe( $data['code'] );
+		$course->start_date = Input::safe( $data['start_date'] );
+		$course->end_date = Input::safe( $data['end_date'] );
+		$course->reference_document = Input::safe( $data['reference_document'] );
+		$course->save();
+
+		$this->render( $course );
+	}
+
+	/**
+	 * Handle the delete action [POST|DELETE].
+	 * Usually, controller will delete the entity.
+	 */
+	public function delete($id)
+	{
+		$this->render( array(
+			'deleted' => Course::find( (int) $id )->delete()
+		) );
+	}
+
+}

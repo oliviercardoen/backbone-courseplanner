@@ -16,7 +16,7 @@ App.Base.View.CourseFormView = Backbone.View.extend({
 
     submit: function (e) {
         e.preventDefault();
-        this.collection.add({
+        this.collection.create({
             name:               this.$name.val(),
             start_date:         this.$start_date.val(),
             end_date:           this.$end_date.val(),
