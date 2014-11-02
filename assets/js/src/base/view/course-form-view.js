@@ -24,7 +24,11 @@ App.Base.View.CourseFormView = Backbone.View.extend({
             curriculums:        {},
             code:               this.$code.val(),
             lesson_number:      10
-        });
+        }, { wait: true });
+        this.close();
+    },
+
+    close: function () {
         this.$name.val("");
         this.$code.val("");
         this.$start_date.val("");

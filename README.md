@@ -1,4 +1,4 @@
 backbone-courseplanner
 ======================
 
-CoursePlanner is demo app for course and curriculum management created with Backbone.js and Slim Framework.
+CoursePlanner is demo client side app for course and curriculum management created with Backbone.js and Courseplanner API.

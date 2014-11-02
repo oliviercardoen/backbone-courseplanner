@@ -17,7 +17,6 @@ App.Base.View.CourseCollectionView = Backbone.View.extend({
     },
 
     render: function () {
-        //this.collection.empty();
         this.collection.each(this.addItem, this);
         return this;
     },
