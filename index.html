@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Course Planner|Backbone Client</title>
+
+	<!-- Styles -->
+	<link href="css/vendor/bootstrap.min.css" rel="stylesheet">
+	<link href="css/main.css" rel="stylesheet">
+
+	<!-- IE Scripts -->
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+</head>
+<body>
+	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#/index">Course Planner</a>
+			</div>
+
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="#/courses">Mes Cours</a></li>
+                    <li><a href="#/curriculums">Mes Formations</a></li>
+                    <li><a href="#/schools">Mes &Eacute;coles</a></li>
+                    <li><a href="#/students">Mes &Eacute;tudiants</a></li>
+                </ul><!-- .nav -->
+                <ul class="nav navbar-nav pull-right hidden-xs">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="glyphicon glyphicon-user"></i> User name <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a href="#/profile"><i class="glyphicon glyphicon-cog mr-xxsmall"></i>Mon profil</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#/logout"><i class="glyphicon glyphicon-off"></i> Se d&eacute;connecter</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div><!--/.nav-collapse -->
+
+		</div><!-- .container -->
+	</div><!-- .navbar -->
+
+	<div class="site container">
+
+		<div id="primary" class="site-main pt-medium pb-medium">
+			<p>Page content is empty.</p>
+		</div>
+
+	</div><!-- .container -->
+
+	<!-- Templates -->
+    <script type="text/template" id="course-block-index">
+        <div class="row">
+            <div class="col-sm-10 col-xs-9">
+                <%= title %>
+            </div>
+            <div class="col-sm-2 col-xs-3">
+                <button class="pull-right btn btn-default" data-toggle="modal" data-target="#myModal"><i class="glyphicon glyphicon-plus mr-xxsmall"></i><span class="hidden-xs">Ajouter</span></button>
+            </div>
+        </div>
+        <table class="table" id="course-table">
+            <thead>
+            <tr>
+                <th class="hidden-xs">Code</th>
+                <th>Nom du cours</th>
+                <th class="hidden-xs">Début</th>
+                <th class="hidden-xs">Fin</th>
+                <th class="hidden-xs">Annexes</th>
+                <th class="hidden-xs"></th>
+            </tr>
+            </thead>
+        </table>
+    </script>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Ajouter un nouveau cours</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" id="course-form" role="form" action="" method="POST">
+                        <div class="form-group">
+                            <label for="course-name" class="col-sm-4 control-label">Nom</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="course-name" name="course-name" value="" placeholder="...">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="course-code" class="col-sm-4 control-label">Code</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="course-code" name="course-code" value="" placeholder="UF XXX...">
+                            </div>
+                            <div class="col-md-4"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="course-start_date" class="col-sm-4 control-label">Date de début</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="course-start_date" name="course-start_date" value="" placeholder="AAAA-MM-JJ...">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="course-end_date" class="col-sm-4 control-label">Date de fin</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="course-end_date" name="course-end_date" value="" placeholder="AAAA-MM-JJ...">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="course-reference_document" class="col-sm-4 control-label">Dossier pédagogique</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="course-reference_document" name="course-reference_document" value="" placeholder="http://www.mondossier.cfweb.be...">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-4 col-md-12">
+                                <button type="submit" class="btn btn-default">Enregistrer</button>
+                                <a class="ml-xsmall" href="#index" data-dismiss="modal">Annuler</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!--div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div-->
+            </div>
+        </div><!-- .modal-dialog -->
+    </div><!-- .modal -->
+
+    <script type="text/template" id="course-block-show">
+        <div class="row">
+            <div class="col-sm-8">
+                <h1 class="page-header">Tous les cours > <%= name %></h1>
+            </div>
+            <div class="col-sm-4">
+                <button class="pull-right btn btn-danger"><i class="glyphicon glyphicon-trash mr-xxsmall"></i><span class="hidden-xs">Supprimer</span></button>
+                <button class="pull-right btn btn-default"><i class="glyphicon glyphicon-pencil mr-xxsmall"></i><span class="hidden-xs">Modifier</span></button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2 font-bold text-right">Nom</div>
+            <div class="col-sm-10 mb-medium"><%= name %></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2 font-bold text-right">Code</div>
+            <div class="col-sm-10 mb-medium"><%= code %></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2 font-bold text-right">Date de début</div>
+            <div class="col-sm-10 mb-medium"><%= start_date %></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2 font-bold text-right">Date de fin</div>
+            <div class="col-sm-10 mb-medium"><%= end_date %></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2 font-bold text-right">Annexes</div>
+            <div class="col-sm-10 mb-medium"><a href="<%= reference_document %>">Dossier pédagogique</a></div>
+        </div>
+
+        <a class="btn btn-default" href="#/courses"><i class="glyphicon glyphicon-arrow-left mr-xxsmall"></i>Tous mes cours</a>
+    </script>
+
+    <script type="text/template" id="course-list-item">
+        <td class="hidden-xs"><%= code %></td>
+        <td>
+            <a href="#courses/<%= id %>"><%= name %></a>
+        </td>
+        <td class="hidden-xs"><%= start_date %></td>
+        <td class="hidden-xs"><%= end_date %></td>
+        <td class="hidden-xs"><a href="<%= reference_document %>" target="_blank">Dossier pédagogique<i class="glyphicon glyphicon-share-alt ml-xxsmall"></i></a></td>
+        <td class="text-right hidden-xs">
+            <button class="btn btn-default btn-sm ml-xxsmall edit"><i class="glyphicon glyphicon-pencil"></i></button>
+            <button class="btn btn-danger btn-sm ml-xxsmall delete"><i class="glyphicon glyphicon-trash"></i></button>
+        </td>
+    </script>
+
+	<!-- Scripts -->
+	<script src="js/vendor/jquery.js"></script>
+	<script src="js/vendor/bootstrap.js"></script>
+	<script src="js/vendor/underscore.js"></script>
+	<script src="js/vendor/underscore.string.js"></script>
+	<script src="js/vendor/backbone.js"></script>
+	
+	<script src="js/app/app.js"></script>
+	<script src="js/app/router.js"></script>
+	<script src="js/src/base/model/course.js"></script>
+	<script src="js/src/base/collection/course-collection.js"></script>
+	<script src="js/src/base/view/course-item-view.js"></script>
+	<script src="js/src/base/view/course-collection-view.js"></script>
+	<script src="js/src/base/view/course-form-view.js"></script>
+	<script src="js/src/base/view/course-view.js"></script>
+
+	<script>
+		// Run time
+		$(function () {
+
+			var courses = new App.Base.Collection.CourseCollection();
+			courses.fetch();
+
+			var collectionView = new App.Base.View.CourseCollectionView({collection: courses});
+			var formView = new App.Base.View.CourseFormView({
+				collection: courses
+			});
+
+			var router = new App.Router();
+			Backbone.history.start();
+
+		});
+	</script>
+</body>
+</html>

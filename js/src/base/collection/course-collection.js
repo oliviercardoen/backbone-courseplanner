@@ -4,6 +4,6 @@
 App.Base.Collection.CourseCollection = Backbone.Collection.extend({
 
     model: App.Base.Model.Course,
-    url:   "courses"
+    url:   "http://sites/php/courseplanner-api/courses"
 
 });

@@ -43,10 +43,17 @@ body { padding-top: 50px; }
 .pt-xlarge { padding-top: 45px; }
 .pt-xxlarge { padding-top: 60px; }
 
+.pb-xxsmall { padding-bottom: 5px; }
+.pb-xsmall { padding-bottom: 10px; }
+.pb-small { padding-bottom: 15px; }
+.pb-medium { padding-bottom: 20px; }
+.pb-large { padding-bottom: 30px; }
+.pb-xlarge { padding-bottom: 45px; }
+.pb-xxlarge { padding-bottom: 60px; }
+
 .inline-block { display: inline-block; }
 
 /* Layout */
-.site-main { padding: 40px 15px; }
 
 /* Modules */
 .page-header { margin-top: 0; border: 0; }

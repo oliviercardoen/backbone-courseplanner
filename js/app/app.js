@@ -1,5 +1,5 @@
 // Namespace objects and variables.
-(function(){
+(function($){
 
     window.App = {
 
@@ -41,4 +41,4 @@
 
     };
 
-})();
+})($);

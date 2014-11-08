@@ -1,12 +1,12 @@
 App.Router = Backbone.Router.extend({
 
     routes: {
-        "":            "showAllCourses",
-        "index":       "showAllCourses",
-        "courses":     "showAllCourses",
-        "courses/:id": "showCourse",
-        "curriculums": "showAllCurriculums",
-        "*other":      "show404"
+        "":             "showAllCourses",
+        "/index":       "showAllCourses",
+        "/courses":     "showAllCourses",
+        "/courses/:id": "showCourse",
+        "/curriculums": "showAllCurriculums",
+        "*other":       "show404"
     },
 
     index: function () {
