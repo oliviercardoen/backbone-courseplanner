@@ -1,4 +1,4 @@
-App.Base.View.CourseFormView = Backbone.View.extend({
+App.View.CourseFormView = Backbone.View.extend({
 
     el: "#course-form",
 

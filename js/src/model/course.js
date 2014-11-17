@@ -1,7 +1,7 @@
 // Course Model
 // Contains all logic related to the course database entity.
 // Abstract the "/courses/:id" route.
-App.Base.Model.Course = Backbone.Model.extend({
+App.Model.Course = Backbone.Model.extend({
 
     defaults: {
         name:               "",

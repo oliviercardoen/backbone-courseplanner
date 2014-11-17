@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Course Planner|Backbone Client</title>
+	<title>Course Planner | Backbone Client</title>
 
 	<!-- Styles -->
 	<link href="css/vendor/bootstrap.min.css" rel="stylesheet">
@@ -17,74 +17,82 @@
 	<![endif]-->
 </head>
 <body>
-	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="#/index">Course Planner</a>
-			</div>
+    <!-- App -->
+    <div id="app" class="site">
 
-            <div class="collapse navbar-collapse">
-                <ul class="nav navbar-nav">
-                    <li><a href="#/courses">Mes Cours</a></li>
-                    <li><a href="#/curriculums">Mes Formations</a></li>
-                    <li><a href="#/schools">Mes &Eacute;coles</a></li>
-                    <li><a href="#/students">Mes &Eacute;tudiants</a></li>
-                </ul><!-- .nav -->
-                <ul class="nav navbar-nav pull-right hidden-xs">
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="glyphicon glyphicon-user"></i> User name <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu pull-right">
-                            <li><a href="#/profile"><i class="glyphicon glyphicon-cog mr-xxsmall"></i>Mon profil</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#/logout"><i class="glyphicon glyphicon-off"></i> Se d&eacute;connecter</a></li>
+        <header class="site-header">
+
+            <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#/index">Course Planner</a>
+                    </div>
+
+                    <div class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav">
+                            <li><a href="#/courses">Mes Cours</a></li>
+                            <li><a href="#/curriculums">Mes Formations</a></li>
+                            <li><a href="#/schools">Mes &Eacute;coles</a></li>
+                            <li><a href="#/students">Mes &Eacute;tudiants</a></li>
+                        </ul><!-- .nav -->
+                        <ul class="nav navbar-nav pull-right hidden-xs">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="glyphicon glyphicon-user"></i> User name <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu pull-right">
+                                    <li><a href="#/profile"><i class="glyphicon glyphicon-cog mr-xxsmall"></i>Mon profil</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#/logout"><i class="glyphicon glyphicon-off"></i> Se d&eacute;connecter</a></li>
+                                </ul>
+                            </li>
                         </ul>
-                    </li>
-                </ul>
-            </div><!--/.nav-collapse -->
+                    </div><!--/.nav-collapse -->
+                </div><!-- .container -->
+            </div><!-- .navbar -->
 
-		</div><!-- .container -->
-	</div><!-- .navbar -->
+        </header><!-- .site-header -->
 
-	<div class="site container">
+        <div class="site-content">
+            <section class="container">
+                <div id="alert"></div>
+                <header id="masthead" class="page-header mt-no">
+                    <h1 id="title" class="mt-no">Salut, User !</h1>
+                </header>
+                <div id="primary" class="content-area">
+                    <p>Le contenu de cette page est vide.</p>
+                </div>
+                <div id="secondary" class="widget-area"></div>
+            </section><!-- .container -->
+        </div><!-- .site-content -->
 
-		<div id="primary" class="site-main pt-medium pb-medium">
-			<p>Page content is empty.</p>
-		</div>
+        <footer id="colophon" class="site-footer"></footer><!-- .site-footer -->
 
-	</div><!-- .container -->
+        <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 id="modal-title" class="modal-title" id="modalLabel">Ajouter un nouveau cours</h4>
+                    </div>
+                    <div id="modal-body" class="modal-body"></div>
+                    <div id="modal-footer" class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div><!-- .modal-content -->
+            </div><!-- .modal-dialog -->
+        </div><!-- .modal -->
+
+    </div><!-- .site -->
 
 	<!-- Templates -->
-    <script type="text/template" id="course-block-index">
-        <div class="row">
-            <div class="col-sm-10 col-xs-9">
-                <%= title %>
-            </div>
-            <div class="col-sm-2 col-xs-3">
-                <button class="pull-right btn btn-default" data-toggle="modal" data-target="#myModal"><i class="glyphicon glyphicon-plus mr-xxsmall"></i><span class="hidden-xs">Ajouter</span></button>
-            </div>
-        </div>
-        <table class="table" id="course-table">
-            <thead>
-            <tr>
-                <th class="hidden-xs">Code</th>
-                <th>Nom du cours</th>
-                <th class="hidden-xs">Début</th>
-                <th class="hidden-xs">Fin</th>
-                <th class="hidden-xs">Annexes</th>
-                <th class="hidden-xs"></th>
-            </tr>
-            </thead>
-        </table>
-    </script>
-
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -141,7 +149,7 @@
         </div><!-- .modal-dialog -->
     </div><!-- .modal -->
 
-    <script type="text/template" id="course-block-show">
+    <script type="text/template" id="course-single-tpl">
         <div class="row">
             <div class="col-sm-8">
                 <h1 class="page-header">Tous les cours > <%= name %></h1>
@@ -175,7 +183,7 @@
         <a class="btn btn-default" href="#/courses"><i class="glyphicon glyphicon-arrow-left mr-xxsmall"></i>Tous mes cours</a>
     </script>
 
-    <script type="text/template" id="course-list-item">
+    <script type="text/template" id="course-item-tpl">
         <td class="hidden-xs"><%= code %></td>
         <td>
             <a href="#courses/<%= id %>"><%= name %></a>
@@ -189,37 +197,43 @@
         </td>
     </script>
 
+    <script type="text/template" id="course-collection-tpl"></script>
+
 	<!-- Scripts -->
 	<script src="js/vendor/jquery.js"></script>
 	<script src="js/vendor/bootstrap.js"></script>
 	<script src="js/vendor/underscore.js"></script>
 	<script src="js/vendor/underscore.string.js"></script>
 	<script src="js/vendor/backbone.js"></script>
-	
+
+    <!-- Namespace and routing logic. -->
 	<script src="js/app/app.js"></script>
 	<script src="js/app/router.js"></script>
-	<script src="js/src/base/model/course.js"></script>
-	<script src="js/src/base/collection/course-collection.js"></script>
-	<script src="js/src/base/view/course-item-view.js"></script>
-	<script src="js/src/base/view/course-collection-view.js"></script>
-	<script src="js/src/base/view/course-form-view.js"></script>
-	<script src="js/src/base/view/course-view.js"></script>
+
+    <!-- Business logic -->
+	<script src="js/src/model/course.js"></script>
+	<script src="js/src/collection/course-collection.js"></script>
+
+    <!-- UI logic -->
+    <script src="js/src/view/form-view.js"></script>
+    <script src="js/src/view/item-view.js"></script>
+    <script src="js/src/view/modal-view.js"></script>
+    <script src="js/src/view/single-view.js"></script>
+    <script src="js/src/view/table-view.js"></script>
+
+    <script src="js/src/view/course/course-item-view.js"></script>
+	<script src="js/src/view/course/course-collection-view.js"></script>
+	<script src="js/src/view/course/course-form-view.js"></script>
+	<script src="js/src/view/course/course-single-view.js"></script>
+
+    <script src="js/app/app-view.js"></script>
 
 	<script>
 		// Run time
-		$(function () {
-
-			var courses = new App.Base.Collection.CourseCollection();
-			courses.fetch();
-
-			var collectionView = new App.Base.View.CourseCollectionView({collection: courses});
-			var formView = new App.Base.View.CourseFormView({
-				collection: courses
-			});
-
-			var router = new App.Router();
+		$(document).ready(function () {
+            var app    = new App.View.AppView(),
+			    router = new App.Router();
 			Backbone.history.start();
-
 		});
 	</script>
 </body>

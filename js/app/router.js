@@ -1,32 +1,41 @@
-App.Router = Backbone.Router.extend({
+var App = App || {};
 
-    routes: {
-        "":             "showAllCourses",
-        "/index":       "showAllCourses",
-        "/courses":     "showAllCourses",
-        "/courses/:id": "showCourse",
-        "/curriculums": "showAllCurriculums",
-        "*other":       "show404"
-    },
+(function($) {
 
-    index: function () {
-        console.log("index page...");
-    },
+    App.Router = Backbone.Router.extend({
 
-    showAllCourses: function () {
-        App.Event.router.trigger('course:showAll');
-    },
+        routes: {
+            "":            "showIndex",
+            "index":       "showIndex",
+            "courses":     "showCourseCollection",
+            "courses/:id": "showCourse",
+            "curriculums": "showCurriculumCollection",
+            "*other":       "show404"
+        },
 
-    showCourse: function (courseId) {
-        App.Event.router.trigger('course:show', courseId);
-    },
+        showIndex: function () {
+            App.event.trigger('app:index');
+            console.log('app:index');
+        },
 
-    showAllCurriculums: function () {
-        console.log("curriculums page...");
-    },
+        showCourseCollection: function () {
+            App.event.trigger('course:showAll');
+            console.log('course:showAll');
+        },
 
-    show404: function () {
-        console.log("404 page...");
-    }
+        showCourse: function (id) {
+            App.event.trigger('course:show', id);
+            console.log('course:show ' + id);
+        },
 
-});
+        showCurriculumCollection: function () {
+            console.log('curriculum:showAll');
+        },
+
+        show404: function () {
+            console.log('app:404');
+        }
+
+    });
+
+})(jQuery);

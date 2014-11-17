@@ -1,9 +1,12 @@
-// Course Item View
-// Contains all UI logic related to a single course.
-App.Base.View.CourseItemView = Backbone.View.extend({
+// Item View
+// Contains all UI logic related to an item into a table or a list.
+App.View.ItemView = Backbone.View.extend({
 
     tagName:   "tr",
-    className: "course-item",
+
+    events: {
+        'click .delete': 'destroy'
+    },
 
     initialize: function () {
         this.model.on("invalid", this.showError, this);
@@ -13,19 +16,12 @@ App.Base.View.CourseItemView = Backbone.View.extend({
         this.model.on("destroy", this.remove, this);
     },
 
-    template: App.Template.compile("course-list-item"),
-
-    events: {
-        'click .edit':   'edit',
-        'click .delete': 'destroy'
-    },
-
     save: function () {
         console.log("saved...");
     },
 
     edit: function () {
-        var title = prompt("Comment s'appelle le cours ?")
+        var title = prompt("Ingredient name:")
         this.model.set({"name": title}, {validate: true});
         this.model.save();
     },
@@ -40,7 +36,7 @@ App.Base.View.CourseItemView = Backbone.View.extend({
     },
 
     showError: function (model, error) {
-        App.ViewManager.$primary.prepend(App.Alert.error({message: error}));
+        App.event.trigger("error:show", error);
     }
 
 });

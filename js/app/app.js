@@ -1,21 +1,15 @@
+var App = App || {};
+
 // Namespace objects and variables.
 (function($){
 
-    window.App = {
+    App = {
 
-        Base: {
-            Model: {},
-            Collection: {},
-            View: {}
-        },
-        Auth: {
-            Model: {},
-            Collection: {},
-            View: {}
-        },
-        Event: {
-            router: _.extend({}, Backbone.Events)
-        },
+        event: _.extend({}, Backbone.Events),
+
+        Model: {},
+        Collection: {},
+        View: {},
         Message: {
             Error: {
                 empty: function (field) {
@@ -34,11 +28,8 @@
             compile: function (id) {
                 return _.template($("#" + id).html());
             }
-        },
-        ViewManager: {
-            $primary: $("#primary")
         }
 
     };
 
-})($);
+})(jQuery);
